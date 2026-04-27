@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pokopia Roommate Calculator</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1>Pokopia Roommate Calculator</h1>
+    <p class="subtitle">
+      Pick 2-4 Pokémon to find favorite categories they share &mdash;
+      then see which furniture and items make all of them happy.
+    </p>
+  </header>
+
+  <main>
+    <section class="picker">
+      <div class="picker-header">
+        <h2>Your roommates</h2>
+        <span class="counter" id="counter">0 / 4 selected</span>
+      </div>
+
+      <div class="selected" id="selected" aria-live="polite"></div>
+
+      <label for="search" class="search-label">Add a Pokémon</label>
+      <div class="search-wrap">
+        <input
+          type="text"
+          id="search"
+          placeholder="Start typing… (e.g. Pikachu, Eevee)"
+          autocomplete="off"
+          spellcheck="false"
+        />
+        <ul id="suggestions" class="suggestions" role="listbox"></ul>
+      </div>
+    </section>
+
+    <section class="results-wrap">
+      <div class="results-toolbar" id="results-toolbar" hidden>
+        <span class="toolbar-label">Group items by:</span>
+        <div class="toggle-group" role="radiogroup" aria-label="Item grouping">
+          <button type="button" class="toggle on" data-group="flat" role="radio" aria-checked="true">Flat list</button>
+          <button type="button" class="toggle" data-group="category" role="radio" aria-checked="false">Item Category</button>
+        </div>
+      </div>
+      <div class="results" id="results">
+        <div class="empty-state" id="empty-state">
+          Select at least 2 Pokémon to see what they have in common.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>
+      Data sourced from
+      <a href="https://www.serebii.net/pokemonpokopia/favorites.shtml" target="_blank" rel="noopener">Serebii</a>.
+      Item lists are still being completed by Serebii contributors.
+    </p>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
