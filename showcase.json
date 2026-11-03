@@ -1,0 +1,94 @@
+{
+  "$schema": "https://definitelybenny.dev/showcase.schema.json",
+  "id": "pokopia",
+  "order": 1,
+  "status": "live",
+  "question": "Which furniture keeps four Pokémon roommates happy?",
+  "game": "Pokémon Pokopia",
+  "name": "Pokopia Roommate Calculator",
+  "note": "start here, it’s the fun one",
+  "tilt": "-1.6deg",
+  "what": "Pick two to four Pokémon who share a house. It finds the favorite categories they have in common and lists the furniture and items that make every one of them happy.",
+  "useWhen": [
+    "You’re about to spend materials on a room and want everyone in it to like it.",
+    "A new Pokémon moved in and you’re not sure they fit the house."
+  ],
+  "thenAsk": [
+    "What if it worked backwards, from a room you built to the Pokémon who’d love it?",
+    "Could it place a whole town at once instead of one house?",
+    "The data is a public list. What else could you answer with it?"
+  ],
+  "links": [
+    {
+      "label": "Open the calculator",
+      "href": "https://definitelybenny.dev/pokopia-roommate-calc/",
+      "primary": true
+    },
+    {
+      "label": "See the code",
+      "href": "https://github.com/definitelybenny/pokopia-roommate-calc"
+    }
+  ],
+  "next": "mock-regional",
+  "detail": {
+    "status": "Live · Pokémon Pokopia",
+    "lede": "The Pokopia Roommate Calculator. Pick two to four Pokémon who share a house, and it shows the favorite categories they have in common and the furniture that makes every one of them happy.",
+    "what": {
+      "title": "Everyone gets a favorite.",
+      "body": [
+        "Every Pokémon in Pokopia has favorite categories of things. Put a few of them in one house and the trick is finding what they all like. That overlap is the answer, and the calculator draws it for you."
+      ],
+      "callout": "the middle of the circles is the whole tool, honestly",
+      "figure": {
+        "type": "venn"
+      }
+    },
+    "how": {
+      "title": "Three taps, one happy house.",
+      "steps": [
+        {
+          "title": "Add your roommates",
+          "body": "Pick two to four Pokémon who live together or are about to."
+        },
+        {
+          "title": "Read the overlap",
+          "body": "It lists the favorite categories every one of them shares."
+        },
+        {
+          "title": "Shop the list",
+          "body": "Each shared category comes with the furniture and items that fit it. Build from that."
+        }
+      ],
+      "headsUp": "The favorites come from Serebii’s Pokopia list, and Serebii’s contributors are still filling in some item lists, so a few results may be incomplete."
+    },
+    "works": {
+      "title": "It’s one set intersection. Mostly.",
+      "body": [
+        "Each roommate’s favorite categories are a set. Keep only the categories that are in every set and you have what they share.",
+        "Then one more step: an item can sit in more than one category, so two roommates with different favorites can still love the same lamp. The calculator counts who enjoys each item and keeps the ones everyone does."
+      ],
+      "code": "// each roommate's favorite categories, as a Set\nconst setsList = state.selected.map(n => new Set(POKEMON[n]));\n\n// keep the categories every roommate has\nconst sharedCategories = [...setsList[0]]\n  .filter(c => setsList.every(s => s.has(c)));\n\n// and any item that every roommate enjoys, whatever the category\nconst sharedItems = [...itemToPokemon.entries()]\n  .filter(([, pokes]) => pokes.size === state.selected.length)\n  .map(([item]) => item);",
+      "callout": "straight from app.js, lightly trimmed"
+    },
+    "ideas": {
+      "title": "Where you could take it next.",
+      "items": [
+        {
+          "tag": "flip it",
+          "title": "Room first, Pokémon second",
+          "body": "Start from a room you already decorated and ask which Pokémon would love living there."
+        },
+        {
+          "tag": "go bigger",
+          "title": "Plan the whole town",
+          "body": "Instead of one house, place every Pokémon in the house where it’s happiest."
+        },
+        {
+          "tag": "new data, same trick",
+          "title": "Ask a different question",
+          "body": "The data is a public list. Any game with “who likes what” works the same way."
+        }
+      ]
+    }
+  }
+}
